@@ -1,0 +1,27 @@
+# Python-specific patterns
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Virtual environment
+venv/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+
+# Temporary files
+tmp/
+temp/
+*.tmp
