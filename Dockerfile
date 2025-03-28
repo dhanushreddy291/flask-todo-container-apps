@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --link requirements.txt ./
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m venv .venv && \
-    .venv/bin/pip install -r requirements.txt
+    .venv/bin/pip install --no-cache-dir --compile -r requirements.txt
 
 FROM base AS final
 
@@ -20,9 +20,10 @@ WORKDIR /app
 
 COPY --link --from=builder /app/.venv /app/.venv
 COPY --link app.py ./
+COPY --link templates ./templates
 
 ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8080
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "1", "app:app"]
